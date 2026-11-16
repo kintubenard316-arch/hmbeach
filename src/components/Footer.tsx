@@ -1,32 +1,56 @@
 import {
   ArrowUpRight,
-  Facebook,
-  Instagram,
   MapPin,
-  Music2,
   Phone,
-  Youtube,
 } from 'lucide-react';
+import type { SimpleIcon } from 'simple-icons';
+import { siFacebook, siInstagram, siTiktok, siYoutube } from 'simple-icons/icons';
 import { NAV_LINKS, RESORT_CONFIG, SOCIAL_PLATFORMS } from '../data/resortData';
 import { ResortImage } from './ResortImage';
+
+const SOCIAL_ICONS: Record<string, SimpleIcon> = {
+  facebook: siFacebook,
+  instagram: siInstagram,
+  tiktok: siTiktok,
+  youtube: siYoutube,
+};
 
 interface FooterProps {
   onOpenBooking: (presetTopic?: string) => void;
 }
 
 function SocialIcon({ id }: { id: string }) {
-  switch (id) {
-    case 'facebook':
-      return <Facebook className="w-4 h-4 shrink-0" aria-hidden="true" />;
-    case 'instagram':
-      return <Instagram className="w-4 h-4 shrink-0" aria-hidden="true" />;
-    case 'tiktok':
-      return <Music2 className="w-4 h-4 shrink-0" aria-hidden="true" />;
-    case 'youtube':
-      return <Youtube className="w-4 h-4 shrink-0" aria-hidden="true" />;
-    default:
-      return <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />;
+  const icon = SOCIAL_ICONS[id];
+
+  if (!icon) {
+    return <ArrowUpRight className="w-5 h-5 shrink-0" aria-hidden="true" />;
   }
+
+  return (
+    <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0" aria-hidden="true">
+      {id === 'instagram' && (
+        <defs>
+          <linearGradient id="instagram-brand-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#FCAF45" />
+            <stop offset="50%" stopColor="#DD2A7B" />
+            <stop offset="100%" stopColor="#8134AF" />
+          </linearGradient>
+        </defs>
+      )}
+      {id === 'tiktok' ? (
+        <>
+          <path d={icon.path} fill="#25F4EE" transform="translate(-0.7 0)" />
+          <path d={icon.path} fill="#FE2C55" transform="translate(0.7 0)" />
+          <path d={icon.path} fill="#FFFFFF" />
+        </>
+      ) : (
+        <path
+          d={icon.path}
+          fill={id === 'instagram' ? 'url(#instagram-brand-gradient)' : `#${icon.hex}`}
+        />
+      )}
+    </svg>
+  );
 }
 
 export function Footer({ onOpenBooking }: FooterProps) {
