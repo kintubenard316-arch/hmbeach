@@ -1,0 +1,6 @@
+{
+  "name": "H.M Golden Beach Katosi",
+  "description": "Lakeside beach resort and recreational getaway on the shores of Lake Victoria in Katosi, Mukono District, Uganda.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
